@@ -162,8 +162,8 @@ docker exec -it mysql-ctr /bin/bash
 mysql -uroot -p
 
 # Dentro do MySQL
-mysql> create user ‘usr_teste’@’%’ identified by ‘usrteste’;
-mysql> grant all privileges on db_teste.* to ‘usr_teste’@’%’;
+mysql> create user 'usr_teste'@'%' identified by 'usrteste';
+mysql> grant all privileges on db_teste.* to 'usr_teste'@'%’;
 mysql> flush privileges;
 mysql> select User, Db, Host from mysql.db;
 ```
@@ -172,7 +172,7 @@ mysql> select User, Db, Host from mysql.db;
 > a alteração abaixo no MySQL.
 > 
 ```
-ALTER USER 'usr_teste'@'%' IDENTIFIED WITH mysql_native_password BY ‘usrteste’;
+ALTER USER 'usr_teste'@'%' IDENTIFIED WITH mysql_native_password BY 'usrteste';
 ```
 
 
