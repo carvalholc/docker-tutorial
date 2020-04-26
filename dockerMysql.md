@@ -51,11 +51,11 @@ $ docker run -d --rm --name mysql-ctr mysql-img
 
 Argumentos | Descrição
 ---|---
--d - significa detach, onse será executado em background (liberando o terminal para uso)
---rm - informa que se o caontainer já existir, ele vai ser removido para que um novo possa ser criado
---name - indica que passaremos o nome para o nosso container
-mysql-ctr - nome do container
-mysql-img - nome da imagem base para a geração do container
+-d | Significa detach, onse será executado em background (liberando o terminal para uso)
+--rm | Informa que se o caontainer já existir, ele vai ser removido para que um novo possa ser criado
+--name | Indica que passaremos o nome para o nosso container
+mysql-ctr | Nome do container
+mysql-img | Nome da imagem base para a geração do container
 
 ```
 # Exibir os container 'Ativos'
@@ -70,30 +70,41 @@ $ docker ps
 
 $ docker exec -i mysql-ctr mysql -uroot -pmysqltest < db/script.sql
 ```
--i - indica que estamos executando um comando no modo interativo
-mysql-ctr - container que será utilizado o comando
-mysql -uroot -pmysqltest < db/script.sql - comando que será executado
+
+Argumentos | Descrição
+---|---
+-i | Indica que estamos executando um comando no modo interativo
+mysql-ctr | Container que será utilizado o comando
+mysql -uroot -pmysqltest < db/script.sql | Comando que será executado
 
 * Entrando em um container
+
 ```
 # Executar comandos dentro de um container 'ativo'.
 
-docker exec -it mysql-ctr /bin/bash
+$ docker exec -it mysql-ctr /bin/bash
 ```
--it - indica que será utilizado o terminal interativo
-mysql-ctr - nome do container que entraremos
-/bin/bash - comando que queremos executar (neste cado usar o bash)
+
+Argumentos | Descrição
+---|---
+-it | Indica que será utilizado o terminal interativo
+mysql-ctr | Nome do container que entraremos
+/bin/bash | Comando que queremos executar (neste cado usar o bash)
 
 ```
 # Dentro de um container 'ativo'.
 
 # mysql -uroot -p
+
 mysql> show databases;
 mysql> use db_teste
 mysql> show tables;
 mysql> select * from products;
 mysql> exit
+
 # exit
+
+$ 
 ```
 
 * Quando um container é parado, tudo dentro dele é perdido.
@@ -101,16 +112,21 @@ mysql> exit
 ```
 # Parando um container 'ativo'.
 
-# docker stop mysql-ctr
-# docker ps
-# docker run -d --rm --name mysql-ctr mysql-img
-# docker ps
-# docker exec -it mysql-ctr /bin/bash
+$ docker stop mysql-ctr
+$ docker ps
+$ docker run -d --rm --name mysql-ctr mysql-img
+$ docker ps
+$ docker exec -it mysql-ctr /bin/bash
+
 #
 # mysql -uroot -p
+
 mysql> show databases;
 mysql> exit
+
 # exit
+
+$ 
 ```
 
 * Criando uma pasta externa para uso do container
@@ -118,9 +134,9 @@ mysql> exit
 ```
 # Parando um container 'ativo'.
 
-# docker stop mysql-ctr
-# docker ps
-# docker run -d -v $(pwd)/db/data:/var/lib/mysql --rm --name mysql-ctr mysql-img
+$ docker stop mysql-ctr
+$ docker ps
+$ docker run -d -v $(pwd)/db/data:/var/lib/mysql --rm --name mysql-ctr mysql-img
 
 -v - significa volume, onde temos uma pasta no 'host' compartilhada com o 'container'
 $(pwd)/db/data - caminho da pasta externa (host)
@@ -131,41 +147,51 @@ $(pwd)/db/data - caminho da pasta externa (host)
 * Nota: Não é boa prática deixar a pasta do host '-v' dentro da pasta do projeto.
 * ----------------------------------------------------------------------------
 
-# docker ps
-# docker exec -i mysql-ctr mysql -uroot -pmysqltest < db/script.sql
-# <consular a base>
-#
-# docker stop mysql-ctr
-# docker ps
-# 
-# docker run -d -v $(pwd)/db/data:/var/lib/mysql --rm --name mysql-ctr mysql-img
-# docker exec -it mysql-ctr /bin/bash
-#
-# mysql -uroot -p
+$ docker ps
+$ docker exec -i mysql-ctr mysql -uroot -pmysqltest < db/script.sql
+$ <consular a base>
+$
+$ docker stop mysql-ctr
+$ docker ps
+$ 
+$ docker run -d -v $(pwd)/db/data:/var/lib/mysql --rm --name mysql-ctr mysql-img
+$ docker exec -it mysql-ctr /bin/bash
+$
+$ mysql -uroot -p
+
 mysql> show databases;
 mysql> use db_teste;
 mysql> show tables;
 mysql> select * from products;
 mysql> exit
+
 # exit
+
+$ 
 ```
 
 * Configurar container 'Mysql' para ter conexão externa
 
 ```
-docker stop mysql-ctr
-docker run -d -v $(pwd)/db/data:/var/lib/mysql -p 3306:3306 --rm --name mysql-ctr mysql-img
+$ docker stop mysql-ctr
+$ docker run -d -v $(pwd)/db/data:/var/lib/mysql -p 3306:3306 --rm --name mysql-ctr mysql-img
 
 # Criar novo usuário e conceder privilégios para o database
-docker exec -it mysql-ctr /bin/bash
+$ docker exec -it mysql-ctr /bin/bash
 
-mysql -uroot -p
+# Dentro do Container
+# mysql -uroot -p
 
 # Dentro do MySQL
 mysql> create user 'usr_teste'@'%' identified by 'usrteste';
 mysql> grant all privileges on db_teste.* to 'usr_teste'@'%’;
 mysql> flush privileges;
 mysql> select User, Db, Host from mysql.db;
+mysql> exit
+
+# exit
+
+$ 
 ```
 
 > Devido problemas do drive no mysql na biblioteca 'mysql' do 'nodeJS', precisamos efetuar
