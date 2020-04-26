@@ -1,0 +1,20 @@
+{
+  "name": "docker-tutor-api",
+  "version": "1.0.0",
+  "description": "Container docker com API NodeJS para acessar container MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/index"
+  },
+  "keywords": [],
+  "author": "Luis Carvalho",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}

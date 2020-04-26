@@ -184,7 +184,7 @@ $ docker exec -it mysql-ctr /bin/bash
 
 # Dentro do MySQL
 mysql> create user 'usr_teste'@'%' identified by 'usrteste';
-mysql> grant all privileges on db_teste.* to 'usr_teste'@'%’;
+mysql> grant all privileges on db_teste.* to 'usr_teste'@'%';
 mysql> flush privileges;
 mysql> select User, Db, Host from mysql.db;
 mysql> exit
