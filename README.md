@@ -2,11 +2,7 @@
 
 Neste tutorial de exemplo, serão criados 3 conteiners **docker**. Um container com o banco de dados **MySQL**, o segundo container com uma **API NodeJS** que efetuará uma consulta em uma tabela do container do banco **_MySQL_** e o terceiro container com **PHP**, que consome da **_API NodeJS_** e direciona o resultado para uma página **_HTML_**.
 
-1. [Container Docker com Banco de Dados MySQL](dockerMysql.md)
-1. [Container Docker com API NodeJS](dockerNodejs.md)
-1. [Container Docker com PHP](dockerPhp.md)
-
-## Criar o Ambiente da Aplicação
+## Preparar o Ambiente da Aplicação
 
 ### 01. Efetuar o Clone do Projeto
 
@@ -86,5 +82,23 @@ mysql>
 ```
 mysql> ALTER USER 'usr_teste'@'%' IDENTIFIED WITH mysql_native_password BY 'usrteste';
 ```
+
+### 7. Testando os Containers
+
+Abrir um **Navegador Web** (**_browser_**) e testar os links:
+
+Link | Descrição
+---|---
+[localhost:9001/products](http://localhost:9001/products) | Link do Container Docker da API NodeJS
+[localhost:8888](http://localhost:8888) | Link do Container Docker do PHP retornando uma página html.
+
+## Maiores Detalhes
+
+1. [Container Docker com Banco de Dados MySQL](dockerMysql.md)
+1. [Container Docker com API NodeJS](dockerNodejs.md)
+1. [Container Docker com PHP](dockerPhp.md)
+
+## Bônus
+* [Gerenciando Containers Docker com **DockerCompose**](dockerCompose.md)
 
 Para entender melhor sobre cada comando utilizado, acesse os links acima **;)**

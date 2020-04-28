@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+
+    db:
+        image: mysql
+        container_name: mysql-ctr
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: mysqltest
+        volumes:
+            - ./db/data:/var/lib/mysql
+        restart: always
+
+    api:
+        # Informar o caminho do arquivo 'Dockerfile' a ser executado.
+        build: "./api"
+        # Caso necessite executar um arquivo 'Dockefile' que esteja com outro nome.
+        #context: "./api"
+        #dockerfile: Dockerfile-api
+        container_name: node-ctr
+        restart: always
+        volumes:
+            - ./api:/home/node/app
+        ports: 
+            - "9001:9001"
+        depends_on:
+            - db
+
+    web:
+        image: "php:7.2-apache"
+        container_name: php-ctr
+        restart: always
+        volumes: 
+            - ./website:/var/www/html
+        ports: 
+            - "8888:80"
+        depends_on:
+            - db
+            - api
