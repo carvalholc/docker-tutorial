@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+
+    mongo:
+        image: mongo
+        container_name: mongo-container
+        restart: always
+        volumes: 
+            - ./.dbcache/mongo/data:/data/db
+        ports: 
+            - "27017:27017"
+        networks: 
+            - backend
+
+    api:
+        image: node:12.16.2-slim
+        container_name: node-container
+        restart: always
+        volumes:
+            - ./api:/home/node/app
+        ports: 
+            - "3000:3000"
+        working_dir: "/home/node/app"
+        command: "npm start"
+        networks: 
+            - backend
+    
+# A Docker recomenda criar uma rede "networks", pois quando utilizamos "depends_on" é criada uma rede 'default',
+# que esta sendo descontinuada por deixar a aplicação muito exposta e vulneravel a ataques.
+networks: 
+    backend:
+        driver: "bridge"
